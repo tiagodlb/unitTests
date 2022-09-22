@@ -31,7 +31,7 @@ describe("Voucher unit test", () => {
   it("Should throw an error if the voucher does not exist", async () => {
     const code = faker.internet.userName();
     const discount = parseInt(faker.random.numeric());
-    const amount = parseInt(faker.random.numeric(3));
+    const amount = parseInt(faker.random.numeric());
     const id = parseInt(faker.random.numeric(40))
     jest.spyOn(voucherRepository, "getVoucherByCode").mockResolvedValueOnce({
       id,
@@ -47,7 +47,7 @@ describe("Voucher unit test", () => {
   });
 //   it("Should apply a voucher", async () => {
 //     const code = faker.internet.userName();
-//     const discount = parseInt(faker.random.numeric());
+//     const discount = parseInt(faker.random.numeric(1));
 //     const amount = parseInt(faker.random.numeric(3));
 //     const id = parseInt(faker.random.numeric())
 //     jest.spyOn(voucherRepository, "getVoucherByCode").mockResolvedValueOnce({
@@ -57,6 +57,17 @@ describe("Voucher unit test", () => {
 //       used: false,
 //     });
 //       await voucherService.createVoucher(code, discount);
-//       const result = await voucherService.applyVoucher(code, amount);
+//       const {finalAmount} = await voucherService.applyVoucher(code, amount);
+//       const expectedFinalAmount = isAmountValidForDiscount(amount);
+//       const expectedDiscount = applyDiscount(amount, discount);
+//       expect(finalAmount).toEqual(expectedFinalAmount)
 //   });
 });
+
+function isAmountValidForDiscount(amount: number) {
+    return amount >= 100;
+  }
+  
+  function applyDiscount(value: number, discount: number) {
+    return value - value * (discount / 100);
+  }
